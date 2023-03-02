@@ -1,11 +1,11 @@
 <script setup>
-
+  import VueGrid from './components/VueGrid.vue';
+  import CssGrid from './components/CssGrid.vue';
 </script>
 
 <template>
-  <h1>Grid init</h1>
+  <VueGrid/>
+  <CssGrid/>
+  
 </template>
 
-<style scoped>
-
-</style>
