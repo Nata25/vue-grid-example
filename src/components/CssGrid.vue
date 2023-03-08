@@ -2,14 +2,39 @@
 <template>
   <h1>Native css grid</h1>
   <div class="grid">
-    <div v-for="item of items" class="item" :class="`item-${item}`">
-      {{ item }}
+    <div
+      v-for="item of layout"
+      :key="item.i"
+      class="item"
+      :style="getColumns(item)"
+      :id="`item-${item.i}`"
+    >
+      {{ item.i }}
     </div>
   </div>
 </template>
 
-<script setup>
-  const items = [0, 1, 2, 3, 4, 5];
+<script>
+  import { inject } from 'vue';
+
+  export default {
+    setup() {
+      const { store } = inject('store');
+      console.log(this);
+
+      const getColumns = (options) => {
+        return {
+          'grid-column': `${options.x + 1} / ${options.w === 1 ? options.x + 2 : 'span ' + options.w}`,
+          'grid-row': `${options.y + 1} / ${options.h === 1 ? options.y + 2 : 'span ' + options.h}`,
+        }
+      }
+
+      return {
+        layout: store.layout,
+        getColumns
+      }
+    },
+  }
 </script>
 
 <style scoped>
@@ -18,7 +43,7 @@
     padding: 10px;
     box-sizing: border-box;
     grid-template-columns: repeat(6, 140px);
-    grid-template-rows: repeat(3, 32px);
+    grid-auto-rows: 32px;
     width: 900px;
     gap: 8px;
     background-color: #e9e9e9;
@@ -28,6 +53,9 @@
     background: lightgrey;
     border: 1px solid black;
   }
+
+  /* NOTE: the following styles are not used in the component template, but were needed to create a style rendering function
+  and are left here for a reference. */
 
   .item-0 {
     /* {"x":0,"y":0,"w":1,"h":1,"i":"0"} */

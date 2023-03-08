@@ -2,6 +2,9 @@
 
 Comparing options for `vue3-grid-layout-next` and native CSS grid.
 
+- [x] CSS grid reactively rebuilds on any changes in vue-grid
+- [x] Simple modular store from scratch (no 3rd party)
+
 Dev script:
 
 ```
